@@ -3,9 +3,9 @@
 > In this project, we will perform preliminary processing of the data set and then the selected data processing, and finally post-processing the results. The project will contain all the necessary comments and explanations. The data will also be visible for better understanding.
 
 # Submitters:
-[Andrey Dodon](https://www.kaggle.com/andreydodon)
+[Andrey Dodon](https://www.kaggle.com/andreydodon) - (MSc student), Intellectual systems
 
-[Michael Gudovsky](https://il.linkedin.com/in/michael-gudovsky-1392157b)
+[Michael Gudovsky](https://il.linkedin.com/in/michael-gudovsky-1392157b) - (MSc student), Intellectual systems
 
 
 # Resources:
