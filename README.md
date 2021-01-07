@@ -3,9 +3,9 @@
 > In this project, we will perform preliminary processing of the data set and then the selected data processing, and finally post-processing the results. The project will contain all the necessary comments and explanations. The data will also be visible for better understanding.
 
 # Submitters:
-[Andrey Dodon](https://www.kaggle.com/andreydodon) - (MSc student), Intellectual systems
+[Andrey Dodon](https://www.kaggle.com/andreydodon) - `M.Sc student, Intellectual systems`
 
-[Michael Gudovsky](https://il.linkedin.com/in/michael-gudovsky-1392157b) - (MSc student), Intellectual systems
+[Michael Gudovsky](https://il.linkedin.com/in/michael-gudovsky-1392157b) - `M.Sc student, Intellectual systems`
 
 
 # Resources:
@@ -25,7 +25,10 @@
     * Discovering the Data
     * Handling Missing Values
     * Dealing with Outliers
-    * Multicollinearity
+    * Multicollinearity - a phenomenon in which two or more predictor variables 
+						  in a multiple regression model are highly correlated, 
+						  so that the coefficient estimates may change erratically 
+						  in response to small changes in the model or data.
     * Dealing with Categorical Values
     * Standardization
 - Processing:
