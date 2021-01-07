@@ -1,6 +1,8 @@
 # Introduction to intellectual systems
 # Final project.
-> In this project, we will perform preliminary processing of the data set and then the selected data processing, and finally post-processing the results. The project will contain all the necessary comments and explanations. The data will also be visible for better understanding.
+> In this project, we will perform preliminary processing of the data set and then the selected data processing, and finally post-processing the results. 
+The project will contain all the necessary comments and explanations. The data will also be visible for better understanding.
+In order for it to run non-stop for presentation purposes only, we will assume that some manual action was taken where expected (i.e., data processing and decision making)
 
 # Submitters:
 [Andrey Dodon](https://www.kaggle.com/andreydodon) - `M.Sc student, Intellectual systems`
