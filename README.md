@@ -17,3 +17,21 @@
     * [Matplotlib](https://matplotlib.org/)
     * [Seaborn](https://seaborn.pydata.org/)
   - [PyCharm](https://www.jetbrains.com/pycharm/download/#section=windows) and [Anakonda](https://www.anaconda.com/products/individual) as an IDE  
+  
+
+# Project brief
+- Preprocessing steps:
+    * Load the Data
+    * Discovering the Data
+    * Handling Missing Values
+    * Dealing with Outliers
+    * Multicollinearity
+    * Dealing with Categorical Values
+    * Standardization
+- Processing:
+    * k-Nearest Neighbors
+- Postprocessing metrics:
+    * Precision
+    * Recall
+    * F1 Score
+    * ROC AUC
