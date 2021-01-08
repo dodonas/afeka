@@ -11,7 +11,6 @@ In order for it to run non-stop for presentation purposes only, we will assume t
 
 
 # Resources:
-  - [Kaggle](https://www.kaggle.com/antfarol/car-sale-advertisements/download) - Anton Bobanov's dataset
   - Python libraries:
     * [pandas](https://pandas.pydata.org/)
     * [scikit-learn](https://scikit-learn.org/stable/)
@@ -44,55 +43,93 @@ In order for it to run non-stop for presentation purposes only, we will assume t
 
 
 # Load the Data (default dataset):
-```sh
-raw_data = pd.read_csv('data/car_ad.csv', encoding="ISO-8859-1")
+```
+raw_data = pd.read_csv('data/data.csv')
 raw_data.head()
 ```
-|    | car           |   price | body      |   mileage |   engV | engType   | registration   |   year | model   | drive   |
-|---:|:--------------|--------:|:----------|----------:|-------:|:----------|:---------------|-------:|:--------|:--------|
-|  0 | Ford          |   15500 | crossover |        68 |    2.5 | Gas       | yes            |   2010 | Kuga    | full    |
-|  1 | Mercedes-Benz |   20500 | sedan     |       173 |    1.8 | Gas       | yes            |   2011 | E-Class | rear    |
-|  2 | Mercedes-Benz |   35000 | other     |       135 |    5.5 | Petrol    | yes            |   2008 | CL 550  | rear    |
-|  3 | Mercedes-Benz |   17800 | van       |       162 |    1.8 | Diesel    | yes            |   2012 | B 180   | front   |
-|  4 | Mercedes-Benz |   33000 | vagon     |        91 |  nan   | Other     | yes            |   2013 | E-Class | nan     |
+|    |   userid |   gender |   age |   salary |   seniority (years) in comapny |   seniority in role(years) |   monthly return on loan |   how many children |   weight |   height |   grade in last year review (0-10) |   averaged grade of the BSC |
+|---:|---------:|---------:|------:|---------:|-------------------------------:|---------------------------:|-------------------------:|--------------------:|---------:|---------:|-----------------------------------:|----------------------------:|
+|  0 |        1 |        1 |    49 |    14389 |                             14 |                         33 |                     1313 |                   1 |       83 |      196 |                                  6 |                          60 |
+|  1 |        2 |        0 |    41 |     9322 |                              9 |                          9 |                      307 |                   3 |       79 |      176 |                                  8 |                          68 |
+|  2 |        3 |        1 |    47 |    10354 |                             15 |                          9 |                       14 |                   4 |       73 |      167 |                                 10 |                          71 |
+|  3 |        4 |        1 |    47 |    13383 |                             16 |                         16 |                     3009 |                   4 |       86 |      177 |                                  8 |                          72 |
+|  4 |        5 |        0 |    36 |     6751 |                              6 |                         13 |                      224 |                   5 |       64 |      162 |                                  8 |                          92 |
 
 
 # Discovering the Data:
-```sh
+Let's detect missing values if any
+```
+raw_data.isna().sum()
+```
+|                                  |count|
+|:---------------------------------|----:|
+| userid                           |   0 |
+| gender                           |   0 |
+| age                              |   0 |
+| salary                           |   0 |
+| seniority (years) in comapny     |   0 |
+| seniority in role(years)         |   0 |
+| monthly return on loan           |   0 |
+| how many children                |   0 |
+| weight                           |   0 |
+| height                           |   0 |
+| grade in last year review (0-10) |   0 |
+| averaged grade of the BSC        |   0 |
+
+Let's check the number of non-NA/null observations in the data set
+```
+raw_data.count()
+[8 rows x 12 columns]
+```
+|                                  |   0 |
+|:---------------------------------|----:|
+| userid                           | 200 |
+| gender                           | 200 |
+| age                              | 200 |
+| salary                           | 200 |
+| seniority (years) in comapny     | 200 |
+| seniority in role(years)         | 200 |
+| monthly return on loan           | 200 |
+| how many children                | 200 |
+| weight                           | 200 |
+| height                           | 200 |
+| grade in last year review (0-10) | 200 |
+| averaged grade of the BSC        | 200 |
+
+Let's check the dtypes of the data set
+```
+raw_data.dtypes
+```
+|                                  | 0     |
+|:---------------------------------|:------|
+| userid                           | int64 |
+| gender                           | int64 |
+| age                              | int64 |
+| salary                           | int64 |
+| seniority (years) in comapny     | int64 |
+| seniority in role(years)         | int64 |
+| monthly return on loan           | int64 |
+| how many children                | int64 |
+| weight                           | int64 |
+| height                           | int64 |
+| grade in last year review (0-10) | int64 |
+| averaged grade of the BSC        | int64 |
+
+All the data seem to be perfectly aligned. Now, let’s discover the data. We can use the describe method – 
+if we use this method we will get only the descriptive statistics of the numerical features.
+Since all the data in our data set is int64 (numerical) it will perfectly work
+```
 raw_data.describe(include='all')
 ```
-|        | car        |     price | body   |   mileage |       engV | engType   | registration   |       year | model   | drive   |
-|:-------|:-----------|----------:|:-------|----------:|-----------:|:----------|:---------------|-----------:|:--------|:--------|
-| count  | 9576       |   9309    | 9576   | 9576      | 9142       | 9576      | 9576           | 9576       | 9576    | 9065    |
-| unique | 87         |    nan    | 6      |  nan      |  nan       | 4         | 2              |  nan       | 888     | 3       |
-| top    | Volkswagen |    nan    | sedan  |  nan      |  nan       | Petrol    | yes            |  nan       | E-Class | front   |
-| freq   | 936        |    nan    | 3646   |  nan      |  nan       | 4379      | 9015           |  nan       | 199     | 5188    |
-| mean   | nan        |  16081.7  | nan    |  138.862  |    2.64634 | nan       | nan            | 2006.61    | nan     | nan     |
-| std    | nan        |  24301.9  | nan    |   98.6298 |    5.9277  | nan       | nan            |    7.06792 | nan     | nan     |
-| min    | nan        |    259.35 | nan    |    0      |    0.1     | nan       | nan            | 1953       | nan     | nan     |
-| 25%    | nan        |   5400    | nan    |   70      |    1.6     | nan       | nan            | 2004       | nan     | nan     |
-| 50%    | nan        |   9500    | nan    |  128      |    2       | nan       | nan            | 2008       | nan     | nan     |
-| 75%    | nan        |  17000    | nan    |  194      |    2.5     | nan       | nan            | 2012       | nan     | nan     |
-| max    | nan        | 547800    | nan    |  999      |   99.99    | nan       | nan            | 2016       | nan     | nan     |
+|       |   userid |     gender |      age |   salary |   seniority (years) in comapny |   seniority in role(years) |   monthly return on loan |   how many children |   weight |   height |   grade in last year review (0-10) |   averaged grade of the BSC |
+|:------|---------:|-----------:|---------:|---------:|-------------------------------:|---------------------------:|-------------------------:|--------------------:|---------:|---------:|-----------------------------------:|----------------------------:|
+| count | 200      | 200        | 200      |   200    |                      200       |                   200      |                   200    |           200       | 200      | 200      |                          200       |                    200      |
+| mean  | 100.5    |   0.475    |  46.27   | 12261.3  |                       13.805   |                    16.915  |                  1499.02 |             2.375   |  70.49   | 168.965  |                            7.44    |                     76.895  |
+| std   |  57.8792 |   0.500628 |  13.7683 |  5220.62 |                        7.33183 |                    14.8184 |                  2153.59 |             1.52842 |  14.7389 |  14.0048 |                            3.13136 |                     15.7848 |
+| min   |   1      |   0        |  20      |  4700    |                        1       |                     1      |                     0    |             0       |  41      | 132      |                            0       |                     60      |
+| 25%   |  50.75   |   0        |  35      |  7206.5  |                        8       |                     5      |                   199.5  |             1       |  60      | 158      |                            5.75    |                     60      |
+| 50%   | 100.5    |   0        |  47      | 11707    |                       14       |                    13      |                   585    |             2       |  70      | 167      |                            9       |                     76      |
+| 75%   | 150.25   |   1        |  58      | 16608.2  |                       19       |                    25.25   |                  2026.25 |             3       |  79      | 180      |                           10       |                     92.25   |
+| max   | 200      |   1        |  70      | 22624    |                       30       |                    70      |                 15096    |             8       | 111      | 204      |                           10       |                    100      |
 
 
-As part of the discovery, we would like to get a summary of all the null values in the data set. 
-To do this we will use the IsNull function. Since IsNull is looking for null values and according 
-to our observation from the previous step we will first have to normalize all '0' values
-```sh
-data = raw_data.copy()
-data.loc[(data.price == 0), 'price'] = None
-data.isnull().sum()
-```
-|              |     |
-|:-------------|----:|
-| car          |   0 |
-| price        | 267 |
-| body         |   0 |
-| mileage      |   0 |
-| engV         | 434 |
-| engType      |   0 |
-| registration |   0 |
-| year         |   0 |
-| model        |   0 |
-| drive        | 511 |
