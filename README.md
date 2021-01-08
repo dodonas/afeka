@@ -82,4 +82,17 @@ to our observation from the previous step we will first have to normalize all '0
 ```sh
 data = raw_data.copy()
 data.loc[(data.price == 0), 'price'] = None
+data.isnull().sum()
 ```
+|              |     |
+|:-------------|----:|
+| car          |   0 |
+| price        | 267 |
+| body         |   0 |
+| mileage      |   0 |
+| engV         | 434 |
+| engType      |   0 |
+| registration |   0 |
+| year         |   0 |
+| model        |   0 |
+| drive        | 511 |
