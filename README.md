@@ -75,3 +75,11 @@ raw_data.describe(include='all')
 | 75%    | nan        |  17000    | nan    |  194      |    2.5     | nan       | nan            | 2012       | nan     | nan     |
 | max    | nan        | 547800    | nan    |  999      |   99.99    | nan       | nan            | 2016       | nan     | nan     |
 
+
+As part of the discovery, we would like to get a summary of all the null values in the data set. 
+To do this we will use the IsNull function. Since IsNull is looking for null values and according 
+to our observation from the previous step we will first have to normalize all '0' values
+```sh
+data = raw_data.copy()
+data.loc[(data.price == 0), 'price'] = None
+```
