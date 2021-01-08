@@ -1,4 +1,4 @@
-# Introduction to intellectual systems
+# Introduction to Intelligent systems
 # Final project
 > In this project, we will perform preliminary processing of the data set and then the selected data processing, and finally post-processing the results. 
 The project will contain all the necessary comments and explanations. The data will also be visible for better understanding.
@@ -48,28 +48,30 @@ In order for it to run non-stop for presentation purposes only, we will assume t
 raw_data = pd.read_csv('data/car_ad.csv', encoding="ISO-8859-1")
 print(raw_data.head())
 ```
-| car | price | body | mileage | engV | engType| registration | year | model | drive |
-| --- | ----- | ---- | ------- | ---- | -------| ------------ | ---- | ----- | ----- |
-|Ford 		  | 15500 	|crossover|68	|2.5	|Gas   |	yes|	2010|	   Kuga|	 full|
-|Mercedes-Benz|	20500	|sedan	  |173	|1.8	|Gas   |	yes|	2011|	E-Class|	rear |
-|Mercedes-Benz|	35000	|other	  |135	|5.5	|Petrol|	yes|	2008|	CL	550|	rear |
-|Mercedes-Benz|	17800	|van	  |162	|1.8	|Diesel|	yes|	2012|	B	180|	front|
-|Mercedes-Benz|	33000	|vagon	  |91	|NA		|Other |	yes|	2013|	E-Class|		 |
-|...		  |	...     |...      |...	|...    |...   |	...|	 ...|	    ...|	 ... |
+|    | car           |   price | body      |   mileage |   engV | engType   | registration   |   year | model   | drive   |
+|---:|:--------------|--------:|:----------|----------:|-------:|:----------|:---------------|-------:|:--------|:--------|
+|  0 | Ford          |   15500 | crossover |        68 |    2.5 | Gas       | yes            |   2010 | Kuga    | full    |
+|  1 | Mercedes-Benz |   20500 | sedan     |       173 |    1.8 | Gas       | yes            |   2011 | E-Class | rear    |
+|  2 | Mercedes-Benz |   35000 | other     |       135 |    5.5 | Petrol    | yes            |   2008 | CL 550  | rear    |
+|  3 | Mercedes-Benz |   17800 | van       |       162 |    1.8 | Diesel    | yes            |   2012 | B 180   | front   |
+|  4 | Mercedes-Benz |   33000 | vagon     |        91 |  nan   | Other     | yes            |   2013 | E-Class | nan     |
 
 
 # Discovering the Data:
 ```sh
-raw_data.describe()
+print(raw_data.describe(include='all'))
 ```
-|	  |price		|mileage	|engV		 |year		 |
-|---- |-----		|-------	|----		 |----		 |
-|count|9576.000000  |9576.000000|9142.000000 |9576.000000|
-|mean |15633.317316 |138.862364 | 2.646344	 |2006.605994|
-|std  |24106.523436 |98.629754  | 5.927699	 | 7.067924	 |
-|min  |0.000000	    | 0.000000  | 0.100000	 |1953.000000|
-|25%  |4999.000000  |70.000000  | 1.600000	 |2004.000000|
-|50%  |9200.000000  |128.000000 | 2.000000	 |2008.000000|
-|75%  |16700.000000 |194.000000 | 2.500000	 |2012.000000|
-|max  |547800.000000|999.000000 |99.990000 	 |2016.000000|
+|        | car        |     price | body   |   mileage |       engV | engType   | registration   |       year | model   | drive   |
+|:-------|:-----------|----------:|:-------|----------:|-----------:|:----------|:---------------|-----------:|:--------|:--------|
+| count  | 9576       |   9309    | 9576   | 9576      | 9142       | 9576      | 9576           | 9576       | 9576    | 9065    |
+| unique | 87         |    nan    | 6      |  nan      |  nan       | 4         | 2              |  nan       | 888     | 3       |
+| top    | Volkswagen |    nan    | sedan  |  nan      |  nan       | Petrol    | yes            |  nan       | E-Class | front   |
+| freq   | 936        |    nan    | 3646   |  nan      |  nan       | 4379      | 9015           |  nan       | 199     | 5188    |
+| mean   | nan        |  16081.7  | nan    |  138.862  |    2.64634 | nan       | nan            | 2006.61    | nan     | nan     |
+| std    | nan        |  24301.9  | nan    |   98.6298 |    5.9277  | nan       | nan            |    7.06792 | nan     | nan     |
+| min    | nan        |    259.35 | nan    |    0      |    0.1     | nan       | nan            | 1953       | nan     | nan     |
+| 25%    | nan        |   5400    | nan    |   70      |    1.6     | nan       | nan            | 2004       | nan     | nan     |
+| 50%    | nan        |   9500    | nan    |  128      |    2       | nan       | nan            | 2008       | nan     | nan     |
+| 75%    | nan        |  17000    | nan    |  194      |    2.5     | nan       | nan            | 2012       | nan     | nan     |
+| max    | nan        | 547800    | nan    |  999      |   99.99    | nan       | nan            | 2016       | nan     | nan     |
 
