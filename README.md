@@ -46,7 +46,7 @@ In order for it to run non-stop for presentation purposes only, we will assume t
 # Load the Data (default dataset):
 ```sh
 raw_data = pd.read_csv('data/car_ad.csv', encoding="ISO-8859-1")
-print(raw_data.head())
+raw_data.head()
 ```
 |    | car           |   price | body      |   mileage |   engV | engType   | registration   |   year | model   | drive   |
 |---:|:--------------|--------:|:----------|----------:|-------:|:----------|:---------------|-------:|:--------|:--------|
@@ -59,7 +59,7 @@ print(raw_data.head())
 
 # Discovering the Data:
 ```sh
-print(raw_data.describe(include='all'))
+raw_data.describe(include='all')
 ```
 |        | car        |     price | body   |   mileage |       engV | engType   | registration   |       year | model   | drive   |
 |:-------|:-----------|----------:|:-------|----------:|-----------:|:----------|:---------------|-----------:|:--------|:--------|
