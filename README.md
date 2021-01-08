@@ -5,9 +5,9 @@ The project will contain all the necessary comments and explanations. The data w
 In order for it to run non-stop for presentation purposes only, we will assume that some manual action was taken where expected (i.e., data processing and decision making)
 
 # Submitters:
-[Andrey Dodon](https://www.kaggle.com/andreydodon) - `M.Sc student, Intellectual systems`
+[Andrey Dodon](https://www.kaggle.com/andreydodon) - `Afeka M.Sc. student, Intelligent systems`
 
-[Michael Gudovsky](https://il.linkedin.com/in/michael-gudovsky-1392157b) - `M.Sc student, Intellectual systems`
+[Michael Gudovsky](https://il.linkedin.com/in/michael-gudovsky-1392157b) - `Afeka M.Sc. student, Intelligent systems`
 
 
 # Resources:
@@ -43,7 +43,11 @@ In order for it to run non-stop for presentation purposes only, we will assume t
 
 
 
-# Load the Data:
+# Load the Data (default dataset):
+```sh
+raw_data = pd.read_csv('data/car_ad.csv', encoding="ISO-8859-1")
+print(raw_data.head())
+```
 | car | price | body | mileage | engV | engType| registration | year | model | drive |
 | --- | ----- | ---- | ------- | ---- | -------| ------------ | ---- | ----- | ----- |
 |Ford 		  | 15500 	|crossover|68	|2.5	|Gas   |	yes|	2010|	   Kuga|	 full|
@@ -51,10 +55,21 @@ In order for it to run non-stop for presentation purposes only, we will assume t
 |Mercedes-Benz|	35000	|other	  |135	|5.5	|Petrol|	yes|	2008|	CL	550|	rear |
 |Mercedes-Benz|	17800	|van	  |162	|1.8	|Diesel|	yes|	2012|	B	180|	front|
 |Mercedes-Benz|	33000	|vagon	  |91	|NA		|Other |	yes|	2013|	E-Class|		 |
-|Nissan		  |	16600   |crossover|83	|2		|Petrol|	yes|	2013|	X-Trail|	full |
 |...		  |	...     |...      |...	|...    |...   |	...|	 ...|	    ...|	 ... |
 
 
 # Discovering the Data:
-![Screenshot](prtScrn/raw_data_describe.png)
+```sh
+raw_data.describe()
+```
+|	  |price		|mileage	|engV		 |year		 |
+|---- |-----		|-------	|----		 |----		 |
+|count|9576.000000  |9576.000000|9142.000000 |9576.000000|
+|mean |15633.317316 |138.862364 | 2.646344	 |2006.605994|
+|std  |24106.523436 |98.629754  | 5.927699	 | 7.067924	 |
+|min  |0.000000	    | 0.000000  | 0.100000	 |1953.000000|
+|25%  |4999.000000  |70.000000  | 1.600000	 |2004.000000|
+|50%  |9200.000000  |128.000000 | 2.000000	 |2008.000000|
+|75%  |16700.000000 |194.000000 | 2.500000	 |2012.000000|
+|max  |547800.000000|999.000000 |99.990000 	 |2016.000000|
 
