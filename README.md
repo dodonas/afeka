@@ -10,22 +10,27 @@ In order for it to run non-stop for presentation purposes only, we will assume t
 [Michael Gudovsky](https://il.linkedin.com/in/michael-gudovsky-1392157b) - `Afeka M.Sc. student, Intelligent systems`
 
 
+
 # Resources:
-  - Python libraries:
+  - Libraries and plugins:
     * [pandas](https://pandas.pydata.org/)
     * [scikit-learn](https://scikit-learn.org/stable/)
     * [Statsmodel](https://www.statsmodels.org/stable/index.html)
     * [Matplotlib](https://matplotlib.org/)
     * [Seaborn](https://seaborn.pydata.org/)
-  - [PyCharm](https://www.jetbrains.com/pycharm/download/#section=windows) and [Anakonda](https://www.anaconda.com/products/individual) as an IDE  
+    * [Math to Image](https://marketplace.visualstudio.com/items?itemName=MeowTeam.vscode-math-to-image)
+  - IDE:
+    * [PyCharm](https://www.jetbrains.com/pycharm/download/#section=windows)
+    * [Anakonda](https://www.anaconda.com/products/individual)
+    * [Visual Studio Code](https://code.visualstudio.com/download)
   
 
 # Project brief:
 - Preprocessing steps:
-    * Load the Data
-    * Discovering the Data
-    * Handling Missing Values
-    * Dealing with Outliers
+    * Loading the data
+    * Investigation of the data
+    * Handling missing values and dealing with outliers
+    * Selection and normalization of the columns to be processed
     * Multicollinearity - a phenomenon in which two or more predictor variables 
 						  in a multiple regression model are highly correlated, 
 						  so that the coefficient estimates may change erratically 
@@ -33,7 +38,7 @@ In order for it to run non-stop for presentation purposes only, we will assume t
     * Dealing with Categorical Values
     * Standardization
 - Processing:
-    * k-Nearest Neighbors
+    * Multiple Linear Regression
 - Postprocessing metrics:
     * Precision
     * Recall
@@ -42,11 +47,18 @@ In order for it to run non-stop for presentation purposes only, we will assume t
 
 
 
-# Load the Data (default dataset):
+# Loading the data:
+A first impression of the data set we will be working with:
+```
+raw_data.shape
+(200, 12)
+```
+A taste of the data
 ```
 raw_data = pd.read_csv('data/data.csv')
 raw_data.head()
 ```
+
 |    |   userid |   gender |   age |   salary |   seniority (years) in comapny |   seniority in role(years) |   monthly return on loan |   how many children |   weight |   height |   grade in last year review (0-10) |   averaged grade of the BSC |
 |---:|---------:|---------:|------:|---------:|-------------------------------:|---------------------------:|-------------------------:|--------------------:|---------:|---------:|-----------------------------------:|----------------------------:|
 |  0 |        1 |        1 |    49 |    14389 |                             14 |                         33 |                     1313 |                   1 |       83 |      196 |                                  6 |                          60 |
@@ -56,12 +68,12 @@ raw_data.head()
 |  4 |        5 |        0 |    36 |     6751 |                              6 |                         13 |                      224 |                   5 |       64 |      162 |                                  8 |                          92 |
 
 
-# Discovering the Data:
+# Investigation of the data:
 Let's detect missing values if any
 ```
 raw_data.isna().sum()
 ```
-|                                  |count|
+|                                  |     |
 |:---------------------------------|----:|
 | userid                           |   0 |
 | gender                           |   0 |
@@ -79,9 +91,8 @@ raw_data.isna().sum()
 Let's check the number of non-NA/null observations in the data set
 ```
 raw_data.count()
-[8 rows x 12 columns]
 ```
-|                                  |   0 |
+|                                  |     |
 |:---------------------------------|----:|
 | userid                           | 200 |
 | gender                           | 200 |
@@ -117,7 +128,7 @@ raw_data.dtypes
 
 All the data seem to be perfectly aligned. Now, let’s discover the data. We can use the describe method – 
 if we use this method we will get only the descriptive statistics of the numerical features.
-Since all the data in our data set is int64 (numerical) it will perfectly work
+Since all the data in our data set is int64 (numeric) it will work perfectly
 ```
 raw_data.describe(include='all')
 ```
@@ -132,4 +143,36 @@ raw_data.describe(include='all')
 | 75%   | 150.25   |   1        |  58      | 16608.2  |                       19       |                    25.25   |                  2026.25 |             3       |  79      | 180      |                           10       |                     92.25   |
 | max   | 200      |   1        |  70      | 22624    |                       30       |                    70      |                 15096    |             8       | 111      | 204      |                           10       |                    100      |
 
+There seems to be a problem with the "seniority in role(years)" values.
+Assume that the accepted minimum value will be: seniority in role - age > min age value
 
+
+# Handling missing values and dealing with outliers
+Since we will work with regression, outliers are a significant issue, 
+we must prepare the most perfect data set possible. After the deep investigation we did again, 
+we decided to remove the column because the data displayed in it is unreliable.
+As an alternative, we can adjust this to seniority in the company, 
+but in this case, we will get almost identical columns.
+Despite the fact that only two columns will be used for linear regression, 
+it is always good to have the relevant data set filtered and prepared properly.
+```
+data = raw_data.copy()
+data.drop('seniority in role(years)', axis='columns', inplace=True)
+```
+
+# Selection and normalization of the columns to be processed
+The columns we will work with are: Salary and seniority in the company
+Let's normalize it
+```
+
+```
+
+
+
+# Multiple Linear Regression
+Multiple or multivariate linear regression is 
+a case of linear regression with two or more independent variables
+The estimated regression function has the equation:
+<img src="https://render.githubusercontent.com/render/math?math=f(x_1, x_2) = b_0%2Bb_1 x_1%2Bb_2 x_2">
+Our goal is to calculate the optimal values of the predicted weights 
+<img src="https://render.githubusercontent.com/render/math?math=b_0, b_1, b_2">
