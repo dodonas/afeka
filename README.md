@@ -50,15 +50,32 @@ In order for it to run non-stop for presentation purposes only, we will assume t
 # Loading the data:
 A first impression of the data set we will be working with:
 ```
+raw_data = pd.read_csv('data/dataUpdated.csv')
 raw_data.shape
 (200, 12)
 ```
+Let's check the details
+```
+raw_data.describe(include='all')
+```
+|        |   userid |     gender |      age |   salary |   seniority (years) in comapny |   seniority in role(years) |   monthly return on loan |   how many children |   weight |   height |   grade in last year review (0-10) |   averaged grade of the BSC |
+|:-------|---------:|-----------:|---------:|---------:|-------------------------------:|---------------------------:|-------------------------:|--------------------:|---------:|---------:|-----------------------------------:|----------------------------:|
+| count  | 200      | 200        | 200      |   200    |                      200       |                   199      |            199           |           200       | 200      |      200 |                          199       |                    200      |
+| unique | nan      | nan        | nan      |   nan    |                      nan       |                   nan      |            nan           |           nan       | nan      |       57 |                          nan       |                    nan      |
+| top    | nan      | nan        | nan      |   nan    |                      nan       |                   nan      |            nan           |           nan       | nan      |      158 |                          nan       |                    nan      |
+| freq   | nan      | nan        | nan      |   nan    |                      nan       |                   nan      |            nan           |           nan       | nan      |       11 |                          nan       |                    nan      |
+| mean   | 100.5    |   0.475    |  46.27   | 12261.3  |                       13.805   |                    17.0452 |              3.90993e+06 |             2.375   |  70.49   |      nan |                            7.34673 |                     76.895  |
+| std    |  57.8792 |   0.500628 |  13.7683 |  5220.62 |                        7.33183 |                    14.9042 |              5.51351e+07 |             1.52842 |  14.7389 |      nan |                            3.31897 |                     15.7848 |
+| min    |   1      |   0        |  20      |  4700    |                        1       |                     1      |              0           |             0       |  41      |      nan |                           -8       |                     60      |
+| 25%    |  50.75   |   0        |  35      |  7206.5  |                        8       |                     5      |            203           |             1       |  60      |      nan |                            5       |                     60      |
+| 50%    | 100.5    |   0        |  47      | 11707    |                       14       |                    13      |            594           |             2       |  70      |      nan |                            9       |                     76      |
+| 75%    | 150.25   |   1        |  58      | 16608.2  |                       19       |                    26      |           2048.5         |             3       |  79      |      nan |                           10       |                     92.25   |
+| max    | 200      |   1        |  70      | 22624    |                       30       |                    70      |              7.77778e+08 |             8       | 111      |      nan |                           10       |                    100      |
+
 A taste of the data
 ```
-raw_data = pd.read_csv('data/data.csv')
 raw_data.head()
 ```
-
 |    |   userid |   gender |   age |   salary |   seniority (years) in comapny |   seniority in role(years) |   monthly return on loan |   how many children |   weight |   height |   grade in last year review (0-10) |   averaged grade of the BSC |
 |---:|---------:|---------:|------:|---------:|-------------------------------:|---------------------------:|-------------------------:|--------------------:|---------:|---------:|-----------------------------------:|----------------------------:|
 |  0 |        1 |        1 |    49 |    14389 |                             14 |                         33 |                     1313 |                   1 |       83 |      196 |                                  6 |                          60 |
@@ -67,11 +84,76 @@ raw_data.head()
 |  3 |        4 |        1 |    47 |    13383 |                             16 |                         16 |                     3009 |                   4 |       86 |      177 |                                  8 |                          72 |
 |  4 |        5 |        0 |    36 |     6751 |                              6 |                         13 |                      224 |                   5 |       64 |      162 |                                  8 |                          92 |
 
+Let's check the data types
+```
+raw_data.dtypes
+```
+|                                  | 0       |
+|:---------------------------------|:--------|
+| userid                           | int64   |
+| gender                           | int64   |
+| age                              | int64   |
+| salary                           | int64   |
+| seniority (years) in comapny     | int64   |
+| seniority in role(years)         | float64 |
+| monthly return on loan           | float64 |
+| how many children                | int64   |
+| weight                           | int64   |
+| height                           | object  |
+| grade in last year review (0-10) | float64 |
+| averaged grade of the BSC        | int64   |
+
+Not all columns in the table are numeric columns. Let's try to convert it.
+```
+data = raw_data.copy()
+data = data.apply(pd.to_numeric, errors='coerce')
+```
+At first, we copy the data to keep the original data for future use, 
+then we apply the conversion to a numeric type. 
+Let's check the details again
+```
+data.describe(include='all')
+```
+|       |   userid |     gender |      age |   salary |   seniority (years) in comapny |   seniority in role(years) |   monthly return on loan |   how many children |   weight |   height |   grade in last year review (0-10) |   averaged grade of the BSC |
+|:------|---------:|-----------:|---------:|---------:|-------------------------------:|---------------------------:|-------------------------:|--------------------:|---------:|---------:|-----------------------------------:|----------------------------:|
+| count | 200      | 200        | 200      |   200    |                      200       |                   199      |            199           |           200       | 200      | 199      |                          199       |                    200      |
+| mean  | 100.5    |   0.475    |  46.27   | 12261.3  |                       13.805   |                    17.0452 |              3.90993e+06 |             2.375   |  70.49   | 168.96   |                            7.34673 |                     76.895  |
+| std   |  57.8792 |   0.500628 |  13.7683 |  5220.62 |                        7.33183 |                    14.9042 |              5.51351e+07 |             1.52842 |  14.7389 |  14.0399 |                            3.31897 |                     15.7848 |
+| min   |   1      |   0        |  20      |  4700    |                        1       |                     1      |              0           |             0       |  41      | 132      |                           -8       |                     60      |
+| 25%   |  50.75   |   0        |  35      |  7206.5  |                        8       |                     5      |            203           |             1       |  60      | 158      |                            5       |                     60      |
+| 50%   | 100.5    |   0        |  47      | 11707    |                       14       |                    13      |            594           |             2       |  70      | 167      |                            9       |                     76      |
+| 75%   | 150.25   |   1        |  58      | 16608.2  |                       19       |                    26      |           2048.5         |             3       |  79      | 180      |                           10       |                     92.25   |
+| max   | 200      |   1        |  70      | 22624    |                       30       |                    70      |              7.77778e+08 |             8       | 111      | 204      |                           10       |                    100      |
 
 # Investigation of the data:
 Let's detect missing values if any
 ```
-raw_data.isna().sum()
+data.isna().sum()
+```
+|                                  |     |
+|:---------------------------------|----:|
+| userid                           |   0 |
+| gender                           |   0 |
+| age                              |   0 |
+| salary                           |   0 |
+| seniority (years) in comapny     |   0 |
+| seniority in role(years)         |   1 |
+| monthly return on loan           |   1 |
+| how many children                |   0 |
+| weight                           |   0 |
+| height                           |   1 |
+| grade in last year review (0-10) |   1 |
+| averaged grade of the BSC        |   0 |
+
+As per the requirements, 
+we should try to replace the missing values with the column average. 
+Let's do it
+```
+na_list = data.columns[data.isna().any()].tolist()
+imp = SimpleImputer(missing_values=np.nan, strategy='mean')
+imp.fit(data[na_list])
+data[na_list] = imp.transform(data[na_list])
+data.isna().sum()
 ```
 |                                  |     |
 |:---------------------------------|----:|
@@ -107,44 +189,47 @@ raw_data.count()
 | grade in last year review (0-10) | 200 |
 | averaged grade of the BSC        | 200 |
 
+
 Let's check the dtypes of the data set
 ```
 raw_data.dtypes
 ```
-|                                  | 0     |
-|:---------------------------------|:------|
-| userid                           | int64 |
-| gender                           | int64 |
-| age                              | int64 |
-| salary                           | int64 |
-| seniority (years) in comapny     | int64 |
-| seniority in role(years)         | int64 |
-| monthly return on loan           | int64 |
-| how many children                | int64 |
-| weight                           | int64 |
-| height                           | int64 |
-| grade in last year review (0-10) | int64 |
-| averaged grade of the BSC        | int64 |
+|                                  |         |
+|:---------------------------------|:--------|
+| userid                           | int64   |
+| gender                           | int64   |
+| age                              | int64   |
+| salary                           | int64   |
+| seniority (years) in comapny     | int64   |
+| seniority in role(years)         | float64 |
+| monthly return on loan           | float64 |
+| how many children                | int64   |
+| weight                           | int64   |
+| height                           | float64 |
+| grade in last year review (0-10) | float64 |
+| averaged grade of the BSC        | int64   |
+Backend Qt5Agg is interactive backend. Turning interactive mode on.
+
 
 All the data seem to be perfectly aligned. Now, let’s discover the data. We can use the describe method – 
 if we use this method we will get only the descriptive statistics of the numerical features.
-Since all the data in our data set is int64 (numeric) it will work perfectly
+Since all the data in our data set is numeric it will work perfectly
 ```
 raw_data.describe(include='all')
 ```
 |       |   userid |     gender |      age |   salary |   seniority (years) in comapny |   seniority in role(years) |   monthly return on loan |   how many children |   weight |   height |   grade in last year review (0-10) |   averaged grade of the BSC |
 |:------|---------:|-----------:|---------:|---------:|-------------------------------:|---------------------------:|-------------------------:|--------------------:|---------:|---------:|-----------------------------------:|----------------------------:|
-| count | 200      | 200        | 200      |   200    |                      200       |                   200      |                   200    |           200       | 200      | 200      |                          200       |                    200      |
-| mean  | 100.5    |   0.475    |  46.27   | 12261.3  |                       13.805   |                    16.915  |                  1499.02 |             2.375   |  70.49   | 168.965  |                            7.44    |                     76.895  |
-| std   |  57.8792 |   0.500628 |  13.7683 |  5220.62 |                        7.33183 |                    14.8184 |                  2153.59 |             1.52842 |  14.7389 |  14.0048 |                            3.13136 |                     15.7848 |
-| min   |   1      |   0        |  20      |  4700    |                        1       |                     1      |                     0    |             0       |  41      | 132      |                            0       |                     60      |
-| 25%   |  50.75   |   0        |  35      |  7206.5  |                        8       |                     5      |                   199.5  |             1       |  60      | 158      |                            5.75    |                     60      |
-| 50%   | 100.5    |   0        |  47      | 11707    |                       14       |                    13      |                   585    |             2       |  70      | 167      |                            9       |                     76      |
-| 75%   | 150.25   |   1        |  58      | 16608.2  |                       19       |                    25.25   |                  2026.25 |             3       |  79      | 180      |                           10       |                     92.25   |
-| max   | 200      |   1        |  70      | 22624    |                       30       |                    70      |                 15096    |             8       | 111      | 204      |                           10       |                    100      |
+| count | 200      | 200        | 200      |   200    |                      200       |                   200      |            200           |           200       | 200      | 200      |                          200       |                    200      |
+| mean  | 100.5    |   0.475    |  46.27   | 12261.3  |                       13.805   |                    17.0452 |              3.90993e+06 |             2.375   |  70.49   | 168.96   |                            7.34673 |                     76.895  |
+| std   |  57.8792 |   0.500628 |  13.7683 |  5220.62 |                        7.33183 |                    14.8667 |              5.49964e+07 |             1.52842 |  14.7389 |  14.0046 |                            3.31062 |                     15.7848 |
+| min   |   1      |   0        |  20      |  4700    |                        1       |                     1      |              0           |             0       |  41      | 132      |                           -8       |                     60      |
+| 25%   |  50.75   |   0        |  35      |  7206.5  |                        8       |                     5      |            203.5         |             1       |  60      | 158      |                            5       |                     60      |
+| 50%   | 100.5    |   0        |  47      | 11707    |                       14       |                    13      |            594           |             2       |  70      | 167      |                            9       |                     76      |
+| 75%   | 150.25   |   1        |  58      | 16608.2  |                       19       |                    26      |           2095.75        |             3       |  79      | 180      |                           10       |                     92.25   |
+| max   | 200      |   1        |  70      | 22624    |                       30       |                    70      |              7.77778e+08 |             8       | 111      | 204      |                           10       |                    100      |
 
 There seems to be a problem with the "seniority in role(years)" values.
-Assume that the accepted minimum value will be: seniority in role - age > min age value
+Assume that the accepted minimum value will be: seniority in role <= seniority in company
 
 
 # Handling missing values and dealing with outliers
