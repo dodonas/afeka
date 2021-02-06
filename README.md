@@ -228,6 +228,12 @@ The second problematic area is "grade in last year review (0-10)" -
 there is a negative value in the field. Although there may be such obscure 
 students who can get a negative score, 
 in our case we will reset all the negative fields to 0
+```
+data['grade in last year review (0-10)'] = np.where(
+    data['grade in last year review (0-10)'] < 0, 
+    0, 
+    data['grade in last year review (0-10)'])
+```
 The third problematic column is "monthly return on loan" -
 There are irrational values. 
 ```
@@ -241,11 +247,6 @@ As per requirements, if there is an amount of "bad" values exiting the 25%,
 we must drop the column. In our case, we clearly see that 75 percent of the data is "OK". 
 Let's adjust the values to 75% column mean.
 ```
-data['grade in last year review (0-10)'] = np.where(
-    data['grade in last year review (0-10)'] < 0, 
-    0, 
-    data['grade in last year review (0-10)'])
-
 data['monthly return on loan'] = np.where(
     data['monthly return on loan'] > data['monthly return on loan'].quantile(0.75),
     data['monthly return on loan'].quantile(0.75),
