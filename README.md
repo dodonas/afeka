@@ -358,6 +358,7 @@ print(df.head().to_markdown())
 |  2 |     0.657164  |          0.609942  |
 |  3 |     0.22283   |          0.251097  |
 |  4 |     0.38786   |          0.466404  |
+
 Compared to the previous result we see that the model has closely predicted this 
 value and hence we can say that our model has a good accuracy
 
