@@ -380,3 +380,7 @@ contain non-informative values.
 |----------------:|----------------------:|---------------------:|-----------:|
 |  non-normalized |      1875.95          |           5282298.84 |      0.82  |
 |  normalized     |      0.10             |           0.01       |      0.78  |
+
+As for the column we removed (seniority in role(years)) - we can use it by comparing it to another 
+column (seniority (years) in comapny) and adjusting its values accordingly. But in such a case we will 
+not gain much benefit because after the adjustment the fields will be almost identical
