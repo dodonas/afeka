@@ -256,12 +256,30 @@ plt.show()
 ![Screenshot](prtScrn/scatter_1.png)
 
 
-Let's normalize it
+Let's normalize it.
+The goal of normalization is to change the values of numeric columns in the dataset to a common scale, 
+without distorting differences in the ranges of values. 
+For machine learning, every dataset does not require normalization. 
+It is required only when features have different ranges like in our case.
 ```
+column_1 = 'seniority (years) in comapny'
+column_2 = 'salary'
 
+column_names_to_normalize = [column_1, column_2]
+x = data[column_names_to_normalize].values
+
+min_max_scaler = preprocessing.MinMaxScaler()
+x_scaled = min_max_scaler.fit_transform(x)
+data[column_names_to_normalize] = pd.DataFrame(x_scaled)
+plt.scatter(data[column_1], data[column_2])
+plt.show()
 ```
+![Screenshot](prtScrn/scatter_2.png)
 
-
+When we will do further analysis in the next steps, 
+the attributed salary data will intrinsically influence the result more due to its larger value. 
+But this doesn’t necessarily mean it is more important as a predictor. 
+So we normalize the data to bring all the variables to the same range.
 
 # Multiple Linear Regression
 Multiple or multivariate linear regression is 
