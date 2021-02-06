@@ -229,7 +229,14 @@ there is a negative value in the field. Although there may be such obscure
 students who can get a negative score, 
 in our case we will reset all the negative fields to 0
 The third problematic column is "monthly return on loan" -
-There are irrational values. Let's try to fix these values by 75% of the column average. 
+There are irrational values. 
+```
+sns.boxplot(x=data['monthly return on loan'])
+plt.show()
+```
+![Screenshot](prtScrn/boxplot_1.png)
+
+Let's try to fix these values by 75% of the column average. 
 As per requirements, if there is an amount of "bad" values exiting the 25%, 
 we must drop the column. In our case, we clearly see that 75 percent of the data is "OK". 
 Let's adjust the values to 75% column mean.

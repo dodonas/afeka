@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import seaborn as sns
 from sklearn.impute import SimpleImputer
 import matplotlib.pyplot as plt
 from sklearn import preprocessing
@@ -33,6 +34,10 @@ print(data.count())
 print(data.dtypes)
 
 print(data.describe(include='all'))
+
+
+sns.boxplot(x=data['monthly return on loan'])
+plt.show()
 
 # Alternatively, we could adjust the column
 # data['seniority in role(years)'] = np.where((
