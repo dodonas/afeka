@@ -31,12 +31,6 @@ In order for it to run non-stop for presentation purposes only, we will assume t
     * Investigation of the data
     * Handling missing values and dealing with outliers
     * Selection and normalization of the columns to be processed
-    * Multicollinearity - a phenomenon in which two or more predictor variables 
-						  in a multiple regression model are highly correlated, 
-						  so that the coefficient estimates may change erratically 
-						  in response to small changes in the model or data.
-    * Dealing with Categorical Values
-    * Standardization
 - Processing:
     * Multiple Linear Regression
 - Postprocessing metrics:
