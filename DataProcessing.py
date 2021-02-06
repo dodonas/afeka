@@ -3,6 +3,8 @@ import numpy as np
 from sklearn.impute import SimpleImputer
 import matplotlib.pyplot as plt
 from sklearn import preprocessing
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
 
 raw_data = pd.read_csv('data/dataUpdated.csv')
 print(raw_data.describe(include='all'))
@@ -45,15 +47,21 @@ plt.style.use('seaborn-whitegrid')
 plt.scatter(data[column_1], data[column_2])
 plt.show()
 
-
 column_names_to_normalize = [column_1, column_2]
-x = data[column_names_to_normalize].values
+real_data = data[column_names_to_normalize].values
 
 min_max_scaler = preprocessing.MinMaxScaler()
-x_scaled = min_max_scaler.fit_transform(x)
-data[column_names_to_normalize] = pd.DataFrame(x_scaled)
+scaled_data = min_max_scaler.fit_transform(real_data)
+normalized_data = pd.DataFrame(scaled_data, columns=column_names_to_normalize)
 
-plt.scatter(data[column_1], data[column_2])
+plt.scatter(normalized_data[column_1], normalized_data[column_2])
 plt.show()
 
-print(data)
+X_train, X_test, y_train, y_test = train_test_split(real_data[0].reshape(-1,1), real_data[1], test_size=0.2)
+
+regressor = LinearRegression()
+regressor.fit(X_train, y_train)
+y_pred = regressor.predict(X_test)
+df = pd.DataFrame({'Real Values':y_test, 'Predicted Values':y_pred})
+print(df)
+

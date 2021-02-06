@@ -212,7 +212,8 @@ data.dtypes
 
 All the data seem to be perfectly aligned. Now, let’s discover the data. We can use the describe method – 
 if we use this method we will get only the descriptive statistics of the numerical features.
-Since all the data in our data set is numeric it will work perfectly
+Since all the data in our data set is numeric it will work perfectly.
+Let’s now analyze the basic statistical values of our dataset.
 ```
 data.describe(include='all')
 ```
@@ -279,8 +280,9 @@ plt.show()
 When we will do further analysis in the next steps, 
 the attributed salary data will intrinsically influence the result more due to its larger value. 
 But this doesn’t necessarily mean it is more important as a predictor. 
-So we normalize the data to bring all the variables to the same range.
+So we normalize the data to bring all the variables to the same range, as can be clearly seen
 
+Let’s move on to the interesting part - where the magic happens
 # Multiple Linear Regression
 Multiple or multivariate linear regression is 
 a case of linear regression with two or more independent variables
@@ -288,3 +290,33 @@ The estimated regression function has the equation:
 <img src="https://render.githubusercontent.com/render/math?math=f(x_1, x_2) = b_0%2Bb_1 x_1%2Bb_2 x_2">
 Our goal is to calculate the optimal values of the predicted weights 
 <img src="https://render.githubusercontent.com/render/math?math=b_0, b_1, b_2">
+First thing first - let's import the class LinearRegression
+```
+from sklearn.linear_model import LinearRegression
+```
+Now, as we have already done in homework and as explained during some lesson,
+Let's split our dataset into the training set and test set
+```
+from sklearn.model_selection import train_test_split
+```
+We use the “train_test_split” function to split our data. 
+Here, we give the “test_size =0.2”, which indicates that 20% of the data is the test set.
+```
+X_train, X_test, y_train, y_test = train_test_split(real_data[0], real_data[1], test_size=0.2)
+```
+Now we will assign a variable “regressor” to the LinearRegression class. 
+We then use the “regressor.fit” to fit the training dataset (X_train and y_train) 
+to this LinearRegression class for the training process to occur.
+```
+regressor = LinearRegression()
+regressor.fit(X_train, y_train)
+```
+Let's predict the profit of the test set using the trained model namely “regressor”. 
+The real values (profits) of the test set data(X_test) is stored in the variable y_test.
+Let's use the “regressor.predict” function to predict the values 
+for our test data X_test. We assign the predicted values as y_pred. 
+We now have two data, y_test (real values) and y_pred (predicted values).
+```
+y_pred = regressor.predict(X_test)
+```
+
