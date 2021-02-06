@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 from sklearn import preprocessing
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
+from sklearn import metrics
 
 raw_data = pd.read_csv('data/dataUpdated.csv')
 print(raw_data.describe(include='all'))
@@ -70,6 +71,15 @@ y_pred = regressor.predict(X_test)
 df = pd.DataFrame({'Real Values': y_test, 'Predicted Values': y_pred})
 print(df.head().to_markdown())
 
+
+def all_metrics(y_test, y_pred):
+    print('Mean absolute error: %.2f' % metrics.mean_absolute_error(y_test, y_pred))
+    print('Mean squared error: %.2f' % metrics.mean_squared_error(y_test, y_pred))
+    print('Coefficient of determination: %.2f' % metrics.r2_score(y_test, y_pred))
+
+
+all_metrics(y_test, y_pred)
+
 X_train, X_test, y_train, y_test = train_test_split(normalized_data[column_1].values.reshape(-1, 1),
                                                     normalized_data[column_2].values,
                                                     test_size=0.2)
@@ -79,3 +89,5 @@ y_pred = regressor.predict(X_test)
 
 df = pd.DataFrame({'Real Values': y_test, 'Predicted Values': y_pred})
 print(df.head().to_markdown())
+
+all_metrics(y_test, y_pred)

@@ -360,3 +360,22 @@ print(df.head().to_markdown())
 |  4 |     0.38786   |          0.466404  |
 Compared to the previous result we see that the model has closely predicted this 
 value and hence we can say that our model has a good accuracy
+
+Now, let's compare the details as requested, using sklearn library metrics.
+We already defined the implementation of all the necessary metrics 
+```
+from sklearn import metrics
+def all_metrics(y_test, y_pred):
+    print('Mean absolute error: %.2f' % metrics.mean_absolute_error(y_test, y_pred))
+    print('Mean squared error: %.2f' % metrics.mean_squared_error(y_test, y_pred))
+    print('Coefficient of determination: %.2f' % metrics.r2_score(y_test, y_pred))
+```
+
+
+It is easy to see that the values obtained from non-normalized data 
+contain non-informative values.
+
+|                 |   Mean absolute error |   Mean squared error |  r2 score  |
+|----------------:|----------------------:|---------------------:|-----------:|
+|  non-normalized |      1875.95          |           5282298.84 |      0.82  |
+|  normalized     |      0.10             |           0.01       |      0.78  |
