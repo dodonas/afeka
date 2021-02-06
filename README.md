@@ -172,7 +172,7 @@ data.isna().sum()
 
 Let's check the number of non-NA/null observations in the data set
 ```
-raw_data.count()
+data.count()
 ```
 |                                  |     |
 |:---------------------------------|----:|
@@ -192,7 +192,7 @@ raw_data.count()
 
 Let's check the dtypes of the data set
 ```
-raw_data.dtypes
+data.dtypes
 ```
 |                                  |         |
 |:---------------------------------|:--------|
@@ -208,14 +208,13 @@ raw_data.dtypes
 | height                           | float64 |
 | grade in last year review (0-10) | float64 |
 | averaged grade of the BSC        | int64   |
-Backend Qt5Agg is interactive backend. Turning interactive mode on.
 
 
 All the data seem to be perfectly aligned. Now, let’s discover the data. We can use the describe method – 
 if we use this method we will get only the descriptive statistics of the numerical features.
 Since all the data in our data set is numeric it will work perfectly
 ```
-raw_data.describe(include='all')
+data.describe(include='all')
 ```
 |       |   userid |     gender |      age |   salary |   seniority (years) in comapny |   seniority in role(years) |   monthly return on loan |   how many children |   weight |   height |   grade in last year review (0-10) |   averaged grade of the BSC |
 |:------|---------:|-----------:|---------:|---------:|-------------------------------:|---------------------------:|-------------------------:|--------------------:|---------:|---------:|-----------------------------------:|----------------------------:|
@@ -229,7 +228,7 @@ raw_data.describe(include='all')
 | max   | 200      |   1        |  70      | 22624    |                       30       |                    70      |              7.77778e+08 |             8       | 111      | 204      |                           10       |                    100      |
 
 There seems to be a problem with the "seniority in role(years)" values.
-Assume that the accepted minimum value will be: seniority in role <= seniority in company
+Assume that the accepted minimum value will be: seniority in role <= seniority in company.
 
 
 # Handling missing values and dealing with outliers
@@ -244,9 +243,19 @@ it is always good to have the relevant data set filtered and prepared properly.
 data = raw_data.copy()
 data.drop('seniority in role(years)', axis='columns', inplace=True)
 ```
+We now have the data set ready for the next steps
 
 # Selection and normalization of the columns to be processed
 The columns we will work with are: Salary and seniority in the company
+As per the requirement, let's present it on the scatter graph
+```
+plt.style.use('seaborn-whitegrid')
+plt.scatter(data['seniority (years) in comapny'],data['salary'], cmap=colours)
+plt.show()
+```
+![Screenshot](prtScrn/scatter_1.png)
+
+
 Let's normalize it
 ```
 
