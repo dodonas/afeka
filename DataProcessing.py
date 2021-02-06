@@ -43,7 +43,6 @@ data['grade in last year review (0-10)'] = np.where(
     data['grade in last year review (0-10)'] < 0,
     0,
     data['grade in last year review (0-10)'])
-print(data.describe(include='all').to_markdown())
 
 column_1 = 'seniority (years) in comapny'
 column_2 = 'salary'
@@ -62,11 +61,12 @@ normalized_data = pd.DataFrame(scaled_data, columns=column_names_to_normalize)
 plt.scatter(normalized_data[column_1], normalized_data[column_2])
 plt.show()
 
-X_train, X_test, y_train, y_test = train_test_split(real_data[0].reshape(-1,1), real_data[1], test_size=0.2)
+X_train, X_test, y_train, y_test = train_test_split(real_data[:,0].reshape(-1,1), real_data[:,1], test_size=0.2)
 
 regressor = LinearRegression()
 regressor.fit(X_train, y_train)
 y_pred = regressor.predict(X_test)
+
 df = pd.DataFrame({'Real Values':y_test, 'Predicted Values':y_pred})
-print(df)
+print(df.head().to_markdown())
 

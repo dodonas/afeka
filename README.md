@@ -311,7 +311,7 @@ from sklearn.model_selection import train_test_split
 We use the “train_test_split” function to split our data. 
 Here, we give the “test_size =0.2”, which indicates that 20% of the data is the test set.
 ```
-X_train, X_test, y_train, y_test = train_test_split(real_data[0], real_data[1], test_size=0.2)
+X_train, X_test, y_train, y_test = train_test_split(real_data[:,0].reshape(-1,1), real_data[:,1], test_size=0.2)
 ```
 Now we will assign a variable “regressor” to the LinearRegression class. 
 We then use the “regressor.fit” to fit the training dataset (X_train and y_train) 
@@ -328,4 +328,15 @@ We now have two data, y_test (real values) and y_pred (predicted values).
 ```
 y_pred = regressor.predict(X_test)
 ```
-
+Let's compare the tests set with predicted values
+```
+df = pd.DataFrame({'Real Values':y_test, 'Predicted Values':y_pred})
+df.head()
+```
+|    |   Real Values |   Predicted Values |
+|---:|--------------:|-------------------:|
+|  0 |          7494 |           10524.8  |
+|  1 |         15644 |           16354.5  |
+|  2 |          4700 |            4047.28 |
+|  3 |          5708 |            7933.77 |
+|  4 |         17200 |           17002.3  |
