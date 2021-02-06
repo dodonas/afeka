@@ -255,6 +255,8 @@ data['monthly return on loan'] = np.where(
 data.describe(include='all')
 ```
 
+![Screenshot](prtScrn/boxplot_2.png)
+
 |       |   userid |     gender |      age |   salary |   seniority (years) in comapny |   monthly return on loan |   how many children |   weight |   height |   grade in last year review (0-10) |   averaged grade of the BSC |
 |:------|---------:|-----------:|---------:|---------:|-------------------------------:|-------------------------:|--------------------:|---------:|---------:|-----------------------------------:|----------------------------:|
 | count | 200      | 200        | 200      |   200    |                      200       |                  200     |           200       | 200      | 200      |                          200       |                    200      |

@@ -56,6 +56,8 @@ data['monthly return on loan'] = np.where(
     data['monthly return on loan']
 )
 
+sns.boxplot(x=data['monthly return on loan'])
+plt.show()
 
 print(data.describe(include='all').to_markdown())
 
