@@ -45,6 +45,16 @@ data['grade in last year review (0-10)'] = np.where(
     0,
     data['grade in last year review (0-10)'])
 
+data['monthly return on loan'] = np.where(
+    data['monthly return on loan'] > data['monthly return on loan'].quantile(0.75),
+    data['monthly return on loan'].quantile(0.75),
+    data['monthly return on loan']
+)
+
+
+print(data.describe(include='all').to_markdown())
+
+
 column_1 = 'seniority (years) in comapny'
 column_2 = 'salary'
 

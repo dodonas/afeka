@@ -228,12 +228,34 @@ The second problematic area is "grade in last year review (0-10)" -
 there is a negative value in the field. Although there may be such obscure 
 students who can get a negative score, 
 in our case we will reset all the negative fields to 0
+The third problematic column is "monthly return on loan" -
+There are irrational values. Let's try to fix these values by 75% of the column average. 
+As per requirements, if there is an amount of "bad" values exiting the 25%, 
+we must drop the column. In our case, we clearly see that 75 percent of the data is "OK". 
+Let's adjust the values to 75% column mean.
 ```
 data['grade in last year review (0-10)'] = np.where(
     data['grade in last year review (0-10)'] < 0, 
     0, 
     data['grade in last year review (0-10)'])
+
+data['monthly return on loan'] = np.where(
+    data['monthly return on loan'] > data['monthly return on loan'].quantile(0.75),
+    data['monthly return on loan'].quantile(0.75),
+    data['monthly return on loan'])
+
+data.describe(include='all')
 ```
+
+|       |   userid |     gender |      age |   salary |   seniority (years) in comapny |   monthly return on loan |   how many children |   weight |   height |   grade in last year review (0-10) |   averaged grade of the BSC |
+|:------|---------:|-----------:|---------:|---------:|-------------------------------:|-------------------------:|--------------------:|---------:|---------:|-----------------------------------:|----------------------------:|
+| count | 200      | 200        | 200      |   200    |                      200       |                  200     |           200       | 200      | 200      |                          200       |                    200      |
+| mean  | 100.5    |   0.475    |  46.27   | 12261.3  |                       13.805   |                  935.633 |             2.375   |  70.49   | 168.96   |                            7.38673 |                     76.895  |
+| std   |  57.8792 |   0.500628 |  13.7683 |  5220.62 |                        7.33183 |                  820.585 |             1.52842 |  14.7389 |  14.0046 |                            3.16959 |                     15.7848 |
+| min   |   1      |   0        |  20      |  4700    |                        1       |                    0     |             0       |  41      | 132      |                            0       |                     60      |
+| 25%   |  50.75   |   0        |  35      |  7206.5  |                        8       |                  203.5   |             1       |  60      | 158      |                            5       |                     60      |
+| 50%   | 100.5    |   0        |  47      | 11707    |                       14       |                  594     |             2       |  70      | 167      |                            9       |                     76      |
+| 75%   | 150.25   |   1        |  58      | 16608.2  |                       19       |                 2065.19  |             3       |  79      | 180      |                           10       |                     92.25   |
 
 # Handling missing values and dealing with outliers
 Since we will work with regression, outliers are a significant issue, 
