@@ -33,7 +33,7 @@ print(data.dtypes)
 
 print(data.describe(include='all'))
 
-# Alternatively we could adjust the column
+# Alternatively, we could adjust the column
 # data['seniority in role(years)'] = np.where((
 #     data['seniority in role(years)'] > data['seniority (years) in comapny']),
 #     data['seniority (years) in comapny'], data['seniority in role(years)'])
@@ -61,12 +61,21 @@ normalized_data = pd.DataFrame(scaled_data, columns=column_names_to_normalize)
 plt.scatter(normalized_data[column_1], normalized_data[column_2])
 plt.show()
 
-X_train, X_test, y_train, y_test = train_test_split(real_data[:,0].reshape(-1,1), real_data[:,1], test_size=0.2)
+X_train, X_test, y_train, y_test = train_test_split(real_data[:, 0].reshape(-1, 1), real_data[:, 1], test_size=0.2)
 
 regressor = LinearRegression()
 regressor.fit(X_train, y_train)
 y_pred = regressor.predict(X_test)
 
-df = pd.DataFrame({'Real Values':y_test, 'Predicted Values':y_pred})
+df = pd.DataFrame({'Real Values': y_test, 'Predicted Values': y_pred})
 print(df.head().to_markdown())
 
+X_train, X_test, y_train, y_test = train_test_split(normalized_data[column_1].values.reshape(-1, 1),
+                                                    normalized_data[column_2].values,
+                                                    test_size=0.2)
+
+regressor.fit(X_train, y_train)
+y_pred = regressor.predict(X_test)
+
+df = pd.DataFrame({'Real Values': y_test, 'Predicted Values': y_pred})
+print(df.head().to_markdown())

@@ -340,3 +340,23 @@ df.head()
 |  2 |          4700 |            4047.28 |
 |  3 |          5708 |            7933.77 |
 |  4 |         17200 |           17002.3  |
+
+Now, let's run the regression on the normalized data
+```
+X_train, X_test, y_train, y_test = train_test_split(normalized_data[column_1].values.reshape(-1, 1),
+                                                    normalized_data[column_2].values,
+                                                    test_size=0.2)
+regressor.fit(X_train, y_train)
+y_pred = regressor.predict(X_test)
+df = pd.DataFrame({'Real Values': y_test, 'Predicted Values': y_pred})
+print(df.head().to_markdown())
+```
+|    |   Real Values |   Predicted Values |
+|---:|--------------:|-------------------:|
+|  0 |     0.0479804 |          0.179328  |
+|  1 |     0         |          0.0357898 |
+|  2 |     0.657164  |          0.609942  |
+|  3 |     0.22283   |          0.251097  |
+|  4 |     0.38786   |          0.466404  |
+Compared to the previous result we see that the model has closely predicted this 
+value and hence we can say that our model has a good accuracy
