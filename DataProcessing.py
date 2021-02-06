@@ -39,6 +39,11 @@ print(data.describe(include='all'))
 #     data['seniority (years) in comapny'], data['seniority in role(years)'])
 
 data.drop('seniority in role(years)', axis='columns', inplace=True)
+data['grade in last year review (0-10)'] = np.where(
+    data['grade in last year review (0-10)'] < 0,
+    0,
+    data['grade in last year review (0-10)'])
+print(data.describe(include='all').to_markdown())
 
 column_1 = 'seniority (years) in comapny'
 column_2 = 'salary'

@@ -230,7 +230,16 @@ data.describe(include='all')
 
 There seems to be a problem with the "seniority in role(years)" values.
 Assume that the accepted minimum value will be: seniority in role <= seniority in company.
-
+The second problematic area is "grade in last year review (0-10)" - 
+there is a negative value in the field. Although there may be such obscure 
+students who can get a negative score, 
+in our case we will reset all the negative fields to 0
+```
+data['grade in last year review (0-10)'] = np.where(
+    data['grade in last year review (0-10)'] < 0, 
+    0, 
+    data['grade in last year review (0-10)'])
+```
 
 # Handling missing values and dealing with outliers
 Since we will work with regression, outliers are a significant issue, 
