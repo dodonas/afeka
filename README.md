@@ -243,7 +243,7 @@ plt.show()
 ![Screenshot](prtScrn/boxplot_1.png)
 
 Let's try to fix these values by 75% of the column average. 
-As per requirements, if there is an amount of "bad" values exiting the 25%, 
+As per requirements, if there is an amount of "bad" values exceeding the 25%, 
 we must drop the column. In our case, we clearly see that 75 percent of the data is "OK". 
 Let's adjust the values to 75% column mean.
 ```
